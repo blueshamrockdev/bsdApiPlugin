@@ -5,6 +5,11 @@
  *
  *
  **/
-interface class bsdApiCore {
+interface bsdApiCore 
+{
+
+	public function authUser($token)
+	{
+	}
 
 }

@@ -1,10 +1,12 @@
 <?PHP
 
 /**
+ * PluginBsdApi actions.
  *
- *
- *
- **/
-abstract class PluginBsdApi implements bsdApiCore {
+ * @package    bsdApiPlugin
+ * @author     druid628
+ */
 
+abstract class PluginBsdApi
+{
 }
