@@ -1,0 +1,7 @@
+api_get:
+  url: /api/get/:class/:what
+  param: { module: bsdAPI, action: get }
+
+api_give:
+  url: /api/give/:class/:what
+  param: { module: bsdAPI, action: give }

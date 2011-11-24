@@ -1,0 +1,9 @@
+bsdApiUser:
+  tableName: bsd_api_user
+  columns:
+    id:          { type: integer, notnull: true, primary: true, autoincrement: true }
+    guard_id:    { type: integer }
+    api_key:     { type: string(35) }
+    api_access:  { type: boolean, notnull: true, default: true }
+  relations:
+    sfGuardUser: { local: guard_id, foreign: id, type: one }
