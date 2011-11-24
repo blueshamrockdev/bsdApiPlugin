@@ -1,0 +1,10 @@
+<?PHP
+
+/**
+ *
+ *
+ *
+ **/
+interface class bsdApiCore {
+
+}
