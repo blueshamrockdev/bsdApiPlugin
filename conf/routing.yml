@@ -7,9 +7,9 @@ api_deauth:
   param: { module: bsdApi, action: revoke }
 
 api_get:
-  url: /api/:token/get/:appClass/:what
+  url: /api/:token/get/:appClass/*
   param: { module: bsdApi, action: get }
 
 api_give:
-  url: /api/:token/give/:appClass/:what
+  url: /api/:token/give/:appClass/*
   param: { module: bsdApi, action: give }
