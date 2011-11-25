@@ -1,7 +1,15 @@
+api_learn:
+  url: /api/learn_me
+  param: { module: bsdApiControl, action: learnMe }
+
+api_deauth:
+  url: /api/:token/revoke
+  param: { module: bsdApi, action: revoke }
+
 api_get:
-  url: /api/:token/get/:class/:what
+  url: /api/:token/get/:appClass/:what
   param: { module: bsdApi, action: get }
 
 api_give:
-  url: /api/:token/give/:class/:what
+  url: /api/:token/give/:appClass/:what
   param: { module: bsdApi, action: give }

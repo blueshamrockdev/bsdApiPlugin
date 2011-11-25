@@ -7,7 +7,10 @@
  * @subpackage bsdApi
  * @author     druid628
  */
-class bsdApiActions extends PluginBsdApiActions
+class bsdApiControlActions extends sfActions
 {
+   public function executeLearnMe(sfWebRequest $request)
+   {
+   }
 
 }
