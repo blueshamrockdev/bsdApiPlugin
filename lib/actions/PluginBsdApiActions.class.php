@@ -1,5 +1,11 @@
 <?PHP
 
+/**
+ * PluginBsdApi (base) actions
+ *
+ * @package    bsdApiPlugin
+ * @author     druid628
+ */
 
 class PluginBsdApiActions extends sfActions
 {

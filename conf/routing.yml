@@ -11,5 +11,5 @@ api_get:
   param: { module: bsdApi, action: get }
 
 api_give:
-  url: /api/:token/give/:appClass/*
+  url: /api/:token/give/:isNew/:appClass/*
   param: { module: bsdApi, action: give }

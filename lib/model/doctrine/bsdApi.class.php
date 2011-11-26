@@ -1,10 +1,12 @@
 <?PHP
 
-/*
+/**
+ * bsdApi
  *
- *
- *
+ * @package    bsdApiPlugin
+ * @author     druid628
  */
+
 class bsdApi extends PluginBsdApi 
 {
 	/**

@@ -1,7 +1,7 @@
 <?PHP
 
 /**
- * PluginBsdApi actions.
+ * PluginBsdApi 
  *
  * @package    bsdApiPlugin
  * @author     druid628

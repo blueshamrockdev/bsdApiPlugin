@@ -1,7 +1,7 @@
 <?php
 
 /**
- * bsdApi actions.
+ * bsdApiActions.
  *
  * @package    bsdApiPlugin
  * @subpackage bsdApi
@@ -17,12 +17,14 @@ class bsdApiActions extends PluginBsdApiActions
        {
           $appClassTable == Doctrine::getTable($appClass);
           $query = sprintf("%s", $request->getParameter('query'));
-          $result = $appClassTable->$query();
+          #$result = $appClassTable->$query();
+	  $result = $appClassTable->createNamedQuery($query)->execute();
           return json_encode($result);
+
        }
 
        $query = Doctrine_Query::create()
-                ->from($appClass . " ac");
+               ->from($appClass . " ac");
                 /**
                  * need to think of the best
                  * way to approach this
@@ -33,11 +35,27 @@ class bsdApiActions extends PluginBsdApiActions
                  * think about it and we'll 
                  * come back to it
                  */
+       $this->apiResult = $query->execute();
    }
 
 
    public function executeGive(sfWebRequest $request)
    {
+       $appClass = sprintf("%s", ucfirst($request->getParameter('appClass')));
+       if($request->hasParameter('isNew') && $request->getParameter('isNew') == true)
+       {
+	       $it = new $appClass;
+	       foreach($request->getRequestParameters() as $attrb => $parm)
+	       {
+			$it->$attrib($parm);
+	       }
+	       if($it->save())
+          		$this->apiResult = json_encode(array("result" => "true"));
+
+       }
+//       $appClassTable == Doctrine::getTable($appClass);
+         $this->apiResult = json_encode(array("result" => "false"));
+
    }
 
    public function executeRevoke(sfWebRequest $request)
