@@ -18,6 +18,7 @@
  */
 class bsdApiPluginConfiguration extends sfPluginConfiguration
 {
+  const VERSION = '0.8.0-DEV';
   /**
    * @see sfPluginConfiguration
    */
