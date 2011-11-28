@@ -18,13 +18,12 @@
  */
 class bsdApiPluginConfiguration extends sfPluginConfiguration
 {
-  const VERSION = '0.8.0-DEV';
+  const VERSION = '1.0.0-DEV';
   /**
    * @see sfPluginConfiguration
    */
   public function initialize()
   {
      	$this->dispatcher->connect('routing.load_configuration', array('bsdApiRouting', 'listenToRoutingLoadConfigurationEvent'));
-	    #$this->dispatcher->connect('user.method_not_found', array('bsdApiUser', 'methodNotFound'));
   }
 }

@@ -2,13 +2,12 @@
 
 class bsdApiRouting {
 
-	public static function listenToRoutingLoadConfiguration(sfEvent $event) {
+	public static function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
 		$routing = $event->getSubject();
 
 
 		if (in_array('bsdApi', sfConfig::get('sf_enabled_modules')) )
 		{
-		    $this->dispatcher->notify(new sfEvent($this, 'application.log', array('register bsdApi routes', 'priority' => sfLogger::INFO)));
 		    $routing->prependRoute('api_deauth', new sfRoute(
         		'/api/revoke/:token',
         		array('module' => 'bsdApi', 'action' => 'revoke') ));
@@ -22,7 +21,6 @@ class bsdApiRouting {
 		}
 		if(in_array('bsdApiControl', sfConfig::get('sf_enabled_modules')))
 		{
-		    $this->dispatcher->notify(new sfEvent($this, 'application.log', array('register bsdApiControl route', 'priority' => sfLogger::INFO)));
 		    $routing->prependRoute('api_learn', new sfRoute(
         		'/api/learn_me',
         		array('module' => 'bsdApiControl', 'action' => 'learnMe') ));
