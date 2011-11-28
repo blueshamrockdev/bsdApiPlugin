@@ -14,7 +14,6 @@ class PluginBsdApiActions extends sfActions
 
 	public function authUser()
 	{
-  sfContext::getInstance()->getLogger()->err("DruiD  token " . $this->_token);
 		if($this->apiUser = Doctrine::getTable('bsdApiUser')->findOneByApiKey($this->_token))
 		{
 			if($this->apiUser->getApiAccess() == true)
@@ -26,25 +25,15 @@ class PluginBsdApiActions extends sfActions
 	public function execute($request)
 	{
     if(!$request->hasParameter('token'))
-    {
-			throw new sfCommandArgumentsException(
-				sprintf('bsdApiAction api token was not found. Authorization epic failed!'));
-    }
+			throw new sfCommandArgumentsException( sprintf('bsdApiAction api token was not found. Authorization epic failed!'));
 
     $this->_token = $request->getParameter('token');
-  //sfContext::getInstance()->getLogger()->err("DruiD  token from request" . $request->getParameter('token'));
-    
+
 		if(!$this->authUser())
-		{
-			throw new sfSecurityException(
-				sprintf('bsdApiAction api token (%s) authorization epic failed!', $request->getParameter('token')));
-		}
+			throw new sfSecurityException( sprintf('bsdApiAction api token (%s) authorization epic failed!', $request->getParameter('token')));
 
     if(!class_exists(ucfirst($request->getParameter('appClass'))))
-    {
-			throw new sfCommandArgumentsException(
-				sprintf('bsdApiAction - Class not Found! (%s)', $request->getParameter('appClass')));
-    }
+			throw new sfCommandArgumentsException( sprintf('bsdApiAction - Class not Found! (%s)', $request->getParameter('appClass')));
 
 			parent::execute($request);
 	}
