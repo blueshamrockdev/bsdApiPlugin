@@ -15,7 +15,7 @@ class bsdApiActions extends PluginBsdApiActions
        $appClass = sprintf("%s", ucfirst($request->getParameter('appClass')));
        if($request->hasParameter('query'))
        {
-          $appClassTable == Doctrine::getTable($appClass);
+          $appClassTable = Doctrine::getTable($appClass);
           $query = sprintf("%s", $request->getParameter('query'));
           #$result = $appClassTable->$query();
 	  $result = $appClassTable->createNamedQuery($query)->execute();

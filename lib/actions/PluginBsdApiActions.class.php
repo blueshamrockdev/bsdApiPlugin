@@ -10,12 +10,14 @@
 class PluginBsdApiActions extends sfActions
 {
 	protected $apiUser;
+  protected $_token;
 
-	public function authUser($token)
+	public function authUser()
 	{
-		if($this->apiUser = Doctrine::getTable('bsdApiUser')->findOneByApiKey($token))
+  sfContext::getInstance()->getLogger()->err("DruiD  token " . $this->_token);
+		if($this->apiUser = Doctrine::getTable('bsdApiUser')->findOneByApiKey($this->_token))
 		{
-			if($this->apiUser->getApiAcces() == true)
+			if($this->apiUser->getApiAccess() == true)
 				return true;
 		}
 		return false;
@@ -28,7 +30,11 @@ class PluginBsdApiActions extends sfActions
 			throw new sfCommandArgumentsException(
 				sprintf('bsdApiAction api token was not found. Authorization epic failed!'));
     }
-		if(!$this->authUser($request->getParameter($token)))
+
+    $this->_token = $request->getParameter('token');
+  //sfContext::getInstance()->getLogger()->err("DruiD  token from request" . $request->getParameter('token'));
+    
+		if(!$this->authUser())
 		{
 			throw new sfSecurityException(
 				sprintf('bsdApiAction api token (%s) authorization epic failed!', $request->getParameter('token')));
