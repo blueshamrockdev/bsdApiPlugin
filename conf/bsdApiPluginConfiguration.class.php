@@ -23,22 +23,7 @@ class bsdApiPluginConfiguration extends sfPluginConfiguration
    */
   public function initialize()
   {
-
-	$this->dispatcher->connect('routing.load_configuration', array('bsdApiRouting', 'listenToRoutingLoadConfigurationEvent'));
-	#$this->dispatcher->connect('user.method_not_found', array('bsdApiUser', 'methodNotFound'));
-
+     	$this->dispatcher->connect('routing.load_configuration', array('bsdApiRouting', 'listenToRoutingLoadConfigurationEvent'));
+	    #$this->dispatcher->connect('user.method_not_found', array('bsdApiUser', 'methodNotFound'));
   }
- 
- /*   if (sfConfig::get('app_sf_guard_plugin_routes_register', true) && in_array('sfGuardAuth', sfConfig::get('sf_enabled_modules', array())))
-    {
-      $this->dispatcher->connect('routing.load_configuration', array('sfGuardRouting', 'listenToRoutingLoadConfigurationEvent'));
-    }
-
-    foreach (array('sfGuardUser', 'sfGuardGroup', 'sfGuardPermission') as $module)
-    {
-      if (in_array($module, sfConfig::get('sf_enabled_modules', array())))
-      {
-        $this->dispatcher->connect('routing.load_configuration', array('sfGuardRouting', 'addRouteForAdmin'.str_replace('sfGuard', '', $module)));
-      }
-    } */
 }
