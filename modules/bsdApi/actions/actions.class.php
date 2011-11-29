@@ -46,20 +46,31 @@ class bsdApiActions extends PluginBsdApiActions
 
    public function executeGive(sfWebRequest $request)
    {
+       $requestParams2Ignore = array('module', "action", "token", "isNew", "appClass");
        $appClass = sprintf("%s", ucfirst($request->getParameter('appClass')));
        if($request->hasParameter('isNew') && $request->getParameter('isNew') == true)
        {
 	       $it = new $appClass;
-	       foreach($request->getRequestParameters() as $attrb => $parm)
+         $stuffFromRequest = $request->getParameterHolder()->getAll();
+         
+         /**
+          * remove module action token isNew and appClass
+          */
+         foreach($requestParams2Ignore as $unNeeded)
+         {
+            unset($stuffFromRequest[$unNeeded]);
+         }
+
+	       foreach($stuffFromRequest as $attrb => $parm)
 	       {
-			$it->$attrib($parm);
+			     $it->set($attrb, $parm);
 	       }
 	       if($it->save())
           		$this->apiResult = json_encode(array("result" => "true"));
+         else
+              $this->apiResult = json_encode(array("result" => "false"));
 
        }
-//       $appClassTable == Doctrine::getTable($appClass);
-         $this->apiResult = json_encode(array("result" => "false"));
 
    }
 
