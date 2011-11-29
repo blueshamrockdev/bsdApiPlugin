@@ -9,6 +9,16 @@
  */
 class bsdApiActions extends PluginBsdApiActions
 {
+/*
+REFERENCE - because I can't ever keep this straight
+Doctrine_Record::STATE_DIRTY = 1
+Doctrine_Record::STATE_TDIRTY = 2
+Doctrine_Record::STATE_CLEAN = 3
+Doctrine_Record::STATE_TCLEAN = 5
+--
+Doctrine_Record::STATE_PROXY = 4
+Doctrine_Record::STATE_LOCKED = 6
+*/
 
    public function executeGet(sfWebRequest $request)
    {
@@ -48,9 +58,11 @@ class bsdApiActions extends PluginBsdApiActions
    {
        $requestParams2Ignore = array('module', "action", "token", "isNew", "appClass");
        $appClass = sprintf("%s", ucfirst($request->getParameter('appClass')));
+
        if($request->hasParameter('isNew') && $request->getParameter('isNew') == true)
        {
 	       $it = new $appClass;
+         
          $stuffFromRequest = $request->getParameterHolder()->getAll();
          
          /**
@@ -65,10 +77,12 @@ class bsdApiActions extends PluginBsdApiActions
 	       {
 			     $it->set($attrb, $parm);
 	       }
-	       if($it->save())
-          		$this->apiResult = json_encode(array("result" => "true"));
+         $it->save();
+
+	       if($it->state() == Doctrine_Record::STATE_CLEAN)
+          		$this->apiResult = json_encode(array("success" => "true"));
          else
-              $this->apiResult = json_encode(array("result" => "false"));
+              $this->apiResult = json_encode(array("success" => "false"));
 
        }
 
@@ -77,9 +91,10 @@ class bsdApiActions extends PluginBsdApiActions
    public function executeRevoke(sfWebRequest $request)
    {
       $this->apiUser()->setApiAccess(false);
-      if($this->apiUser()->save())
-          $this->apiResult = json_encode(array("result" => "true"));
+      $this->apiUser()->save();
+      if($this->apiUser()->state() == Doctrine::STATE_CLEAN)
+          $this->apiResult = json_encode(array("success" => "true"));
       else
-          $this->apiResult = json_encode(array("result" => "false"));
+          $this->apiResult = json_encode(array("success" => "false"));
    }
 }

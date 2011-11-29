@@ -36,6 +36,7 @@ class PluginBsdApiActions extends sfActions
 			throw new sfCommandArgumentsException( sprintf('bsdApiAction - Class not Found! (%s)', $request->getParameter('appClass')));
 
     $this->setLayout(false);
+//    $this->getResponse()->setContentType('application/json');
 		parent::execute($request);
 	}
 
