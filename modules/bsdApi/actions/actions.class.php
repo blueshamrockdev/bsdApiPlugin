@@ -17,14 +17,17 @@ class bsdApiActions extends PluginBsdApiActions
        {
           $appClassTable = Doctrine::getTable($appClass);
           $query = sprintf("%s", $request->getParameter('query'));
-          #$result = $appClassTable->$query();
-	  $result = $appClassTable->createNamedQuery($query)->execute();
-          return json_encode($result);
+	        $result = $appClassTable->createNamedQuery($query)->setHydrationMode(Doctrine::HYDRATE_ARRAY);
+	        // $result = $appClassTable->createNamedQuery($query)->setHydrationMode(Doctrine::HYDRATE_ARRAY)->execute();
+          // $this->apiResult = json_encode($result);
 
        }
+       else
+       {
 
-       $query = Doctrine_Query::create()
+           $result = Doctrine_Query::create()
                ->from($appClass . " ac");
+               
                 /**
                  * need to think of the best
                  * way to approach this
@@ -35,8 +38,10 @@ class bsdApiActions extends PluginBsdApiActions
                  * think about it and we'll 
                  * come back to it
                  */
-       $this->apiResult = $query->execute();
-   }
+           $result->setHydrationMode(Doctrine::HYDRATE_ARRAY);
+       } // else
+       $this->apiResult = json_encode($result->execute());
+   } // get
 
 
    public function executeGive(sfWebRequest $request)
