@@ -2,6 +2,10 @@ api_learn:
   url: /api/learn_me
   param: { module: bsdApiControl, action: learnMe }
 
+api_signup:
+  url: /api/signUp
+  param: { module: bsdApiControl, action: new }
+
 api_deauth:
   url: /api/revoke/:token
   param: { module: bsdApi, action: revoke }

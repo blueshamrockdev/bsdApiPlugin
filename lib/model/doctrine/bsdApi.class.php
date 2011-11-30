@@ -10,15 +10,12 @@
 class bsdApi extends PluginBsdApi 
 {
 	/**
+	 *  class not CURRENTLY used however
+	 *  future plans for this plugin will
+	 *  make use  of this class
 	 *
-	 * @var string $_action get or give 
-	 */
-	protected $_action;
-
-	/**
+	 * Micah Breedlove <Micah@BlueShamrock.com>
+	 * twitter: @druid628
 	 *
-	 * @var string $_class name of the class being accessed
 	 */
-	protected $_class;
-
 }

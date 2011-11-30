@@ -13,4 +13,9 @@ class bsdApiControlActions extends sfActions
    {
    }
 
+   public function executeNew(sfWebRequest $request)
+   {
+	   $this->form = new bsdApiUserForm();
+   }
+
 }
