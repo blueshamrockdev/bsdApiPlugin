@@ -9,33 +9,35 @@
  */
 class PluginBsdApiUserForm extends BaseFormDoctrine
 {
-  public function setup()
-  {
-  $this->setWidgets(array(
-      'id'         => new sfWidgetFormInputHidden(),
-      'guard_id'   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('sfGuardUser'), 'label'=> "User", 'add_empty' => false)),
-      'api_key'    => new sfWidgetFormInputText(),
-      'api_access' => new sfWidgetFormInputCheckbox(),
-    ));
 
-    $this->setValidators(array(
-      'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'guard_id'   => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('sfGuardUser'))),
-      'api_key'    => new sfValidatorString(array('max_length' => 35, 'required' => false)),
-      'api_access' => new sfValidatorBoolean(array('required' => false)),
-    ));
+	public function setup()
+	{
+		$this->setWidgets(array(
+		    'id' => new sfWidgetFormInputHidden(),
+		    'guard_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('sfGuardUser'), 'label' => "User", 'add_empty' => false)),
+		    'api_key' => new sfWidgetFormInputText(),
+		    'api_access' => new sfWidgetFormInputCheckbox(),
+		));
 
-    $this->widgetSchema->setNameFormat('bsdApiUser[%s]');
+		$this->setValidators(array(
+		    'id' => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+		    'guard_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('sfGuardUser'))),
+		    'api_key' => new sfValidatorString(array('max_length' => 35, 'required' => false)),
+		    'api_access' => new sfValidatorBoolean(array('required' => false)),
+		));
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+		$this->widgetSchema->setNameFormat('bsdApiUser[%s]');
 
-    $this->setupInheritance();
+		$this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
+		$this->setupInheritance();
 
-  public function getModelName()
-  {
-    return 'bsdApiUser';
-  }
+		parent::setup();
+	}
+
+	public function getModelName()
+	{
+		return 'bsdApiUser';
+	}
+
 }
