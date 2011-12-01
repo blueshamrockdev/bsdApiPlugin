@@ -1,2 +1,3 @@
 # set layout to false
-has_layout: false
+#default:
+#  has_layout:  false

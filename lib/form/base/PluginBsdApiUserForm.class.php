@@ -13,7 +13,7 @@ class PluginBsdApiUserForm extends BaseFormDoctrine
   {
   $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
-      'guard_id'   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('sfGuardUser'), 'add_empty' => false)),
+      'guard_id'   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('sfGuardUser'), 'label'=> "User", 'add_empty' => false)),
       'api_key'    => new sfWidgetFormInputText(),
       'api_access' => new sfWidgetFormInputCheckbox(),
     ));

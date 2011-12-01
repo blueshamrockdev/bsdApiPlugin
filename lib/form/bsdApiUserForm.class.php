@@ -12,7 +12,7 @@ class bsdApiUserForm extends PluginBsdApiUserForm
   public function configure()
   {
     $ws = $this->getWidgetSchema();
-    if(sfContext::hasInstance() && sfContext::getInstance()->getUser()->isAuthenticated())
+    if($this->getObject()->isNew() && sfContext::hasInstance() && sfContext::getInstance()->getUser()->isAuthenticated())
     {
         $q = Doctrine_Query::create()
           ->from('sfGuardUser sfg')
@@ -20,6 +20,7 @@ class bsdApiUserForm extends PluginBsdApiUserForm
     
         $ws['guard_id'] = new sfWidgetFormDoctrineChoice(array(
             'model' => 'sfGuardUser',
+            'label' => 'User',
             'query' => $q,
             'add_empty' => false));
     }
