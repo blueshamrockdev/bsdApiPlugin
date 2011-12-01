@@ -18,12 +18,30 @@
  */
 class bsdApiPluginConfiguration extends sfPluginConfiguration
 {
-  const VERSION = '1.0.0-DEV';
+  const VERSION = '1.0.0-STABLE';
   /**
    * @see sfPluginConfiguration
    */
+  public function getDependencies() 
+  {
+       return array('sfDoctrineGuardPlugin');
+  }
   public function initialize()
   {
      	$this->dispatcher->connect('routing.load_configuration', array('bsdApiRouting', 'listenToRoutingLoadConfigurationEvent'));
+      $this->dispatcher->connect('context.load_factories', array($this, 'checkDependencies'));
+
+  }
+
+  public function checkDependencies() 
+  {
+      $plugins = $this->configuration->getPlugins();
+      foreach ($this->getDependencies() as $dependency) 
+      {
+          if (!in_array($dependency, $plugins)) 
+          {
+               throw new sfException(sprintf('The plugin "BarPlugin" requires "%s" to be enabled.', $dependency));
+          }
+      }
   }
 }

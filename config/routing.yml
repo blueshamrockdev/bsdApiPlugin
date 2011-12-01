@@ -6,6 +6,10 @@ api_signup:
   url: /api/signUp
   param: { module: bsdApiControl, action: new }
 
+api_account_edit:
+  url: /api/account
+  param: { module: bsdApiControl, action: edit }
+
 api_deauth:
   url: /api/revoke/:token
   param: { module: bsdApi, action: revoke }
