@@ -20,6 +20,7 @@ class bsdApiUserForm extends PluginBsdApiUserForm
     
         $ws['guard_id'] = new sfWidgetFormDoctrineChoice(array(
             'model' => 'sfGuardUser',
+            'label' => 'User',
             'query' => $q,
             'add_empty' => false));
     }
