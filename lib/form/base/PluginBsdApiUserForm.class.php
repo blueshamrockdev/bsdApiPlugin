@@ -21,7 +21,7 @@ class PluginBsdApiUserForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'guard_id'   => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('sfGuardUser'))),
-      'api_key'    => new sfValidatorString(array('max_length' => 35)),
+      'api_key'    => new sfValidatorString(array('max_length' => 35, 'required' => false)),
       'api_access' => new sfValidatorBoolean(array('required' => false)),
     ));
 
