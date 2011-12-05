@@ -23,7 +23,7 @@
  * @method bsdApiUser  setApiAccess()   Sets the current record's "api_access" value
  * @method bsdApiUser  setSfGuardUser() Sets the current record's "sfGuardUser" value
  * 
- * @package    UncleJoey
+ * @package    bsdApiPlugin
  * @subpackage model
  * @author     druid628
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
