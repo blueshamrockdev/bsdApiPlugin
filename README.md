@@ -1,4 +1,4 @@
-**bsdApiPlugin**  ![Project status](http://stillmaintained.com/blueshamrockdev/bsdApiPlugin.png)
+**bsdApiPlugin**  ![Project status](http://stillmaintained.com/blueshamrockdev/bsdApiPlugin.png)  
 package com.blueshamrock.api
   
 The bsdApiPlugin (Blue Shamrock Development API) is a symfony 1.4 plugin for use as a  
