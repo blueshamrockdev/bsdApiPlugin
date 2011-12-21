@@ -42,7 +42,7 @@ class PluginBsdApiActions extends sfActions
 	public function execute($request)
 	{
 
-    if(sfConfig::get('app_bsdapi_ajax') == true)
+    if(sfConfig::get('app_bsdapi_forceAjax') == true)
       $this->forward404Unless($request->isXmlHttpRequest(), "Requires AJAX Request");
 
 		if (!$request->hasParameter('token'))
