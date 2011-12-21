@@ -1,0 +1,3 @@
+all:
+  bsdapi:
+    ajax: false  # false by default
