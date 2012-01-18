@@ -10,16 +10,24 @@
 class bsdApiActions extends PluginBsdApiActions
 {
 	/*
-	  REFERENCE - because I can't ever keep this straight
-	  Doctrine_Record::STATE_DIRTY = 1
+	 * REFERENCE - because I can't ever keep this straight
+	 *
+	  Doctrine_Record::STATE_DIRTY  = 1
 	  Doctrine_Record::STATE_TDIRTY = 2
-	  Doctrine_Record::STATE_CLEAN = 3
+	  Doctrine_Record::STATE_CLEAN  = 3
 	  Doctrine_Record::STATE_TCLEAN = 5
 	  --
-	  Doctrine_Record::STATE_PROXY = 4
+	  Doctrine_Record::STATE_PROXY  = 4
 	  Doctrine_Record::STATE_LOCKED = 6
+	 *
 	 */
 
+	/**
+	 * executeGet
+	 *
+	 * @param sfWebRequest $request
+	 * @return json
+	 */
 	public function executeGet(sfWebRequest $request)
 	{
 		$appClass = sprintf("%s", ucfirst($request->getParameter('appClass')));
@@ -32,7 +40,7 @@ class bsdApiActions extends PluginBsdApiActions
 		{
 
 			$result = Doctrine_Query::create()
-				->from($appClass . " ac");
+					->from($appClass . " ac");
 
 			/**
 			 * need to think of the best
@@ -46,10 +54,17 @@ class bsdApiActions extends PluginBsdApiActions
 			 */
 			$result->setHydrationMode(Doctrine::HYDRATE_ARRAY);
 		} // else
-		$this->apiResult = json_encode($result->execute());
+
+		return $this->renderJSON($result->execute());
 	} // get
 
 
+	/**
+	 * executeGive
+	 *
+	 * @param sfWebRequest $request
+	 * @return json
+	 */
 	public function executeGive(sfWebRequest $request)
 	{
 		$requestParams2Ignore = array('module', "action", "token", "isNew", "appClass");
@@ -76,20 +91,32 @@ class bsdApiActions extends PluginBsdApiActions
 			$it->save();
 
 			if ($it->state() == Doctrine_Record::STATE_CLEAN)
-				$this->apiResult = json_encode(array("success" => "true"));
-			else
-				$this->apiResult = json_encode(array("success" => "false"));
+			{
+				return $this->renderJSON(array("success" => true));
+			} else
+			{
+				return $this->renderJSON(array("success" => false));
+			}
 		}
-	}
+	} // give
 
+	/**
+	 * executeRevoke
+	 *
+	 * @param sfWebRequest $request
+	 * @return json
+	 */
 	public function executeRevoke(sfWebRequest $request)
 	{
 		$this->apiUser()->setApiAccess(false);
 		$this->apiUser()->save();
 		if ($this->apiUser()->state() == Doctrine::STATE_CLEAN)
-			$this->apiResult = json_encode(array("success" => "true"));
-		else
-			$this->apiResult = json_encode(array("success" => "false"));
+		{
+			return $this->renderJSON(array("success" => true));
+		} else
+		{
+			return $this->renderJSON(array("success" => false));
+		}
 	}
 
 }

@@ -13,15 +13,16 @@
  */
 class PluginBsdApiActions extends sfActions
 {
+
 	protected $apiUser;
 	protected $_token;
 
-  /**
-   * authUser 
-   * 
-   * @access public
-   * @return void
-   */
+	/**
+	 * authUser
+	 *
+     * @access public
+	 * @return boolean
+	 */
 	public function authUser()
 	{
 		if ($this->apiUser = Doctrine::getTable('bsdApiUser')->findOneByApiKey($this->_token))
@@ -32,13 +33,13 @@ class PluginBsdApiActions extends sfActions
 		return false;
 	}
 
-  /**
-   * execute 
-   * 
-   * @param sfWebRequest $request 
-   * @access public
-   * @return void
-   */
+	/**
+	 * execute
+	 *
+	 * @param sfWebRequest $request
+     * @access public
+     * @return void
+	 */
 	public function execute($request)
 	{
 
@@ -60,19 +61,18 @@ class PluginBsdApiActions extends sfActions
 		parent::execute($request);
 	}
 
-  /**
-   * renderJSON 
-   * 
-   * @param array $array 
-   * @access protected
-   * @return void
-   */
-  protected function renderJSON(array $array)
-  {
+	/**
+	 * renderJSON
+	 *
+	 * @param array $array
+	 * @access protected
+	 * @return json
+	 */
+	protected function renderJSON(array $array)
+	{
 
-    $this->getResponse()->setHttpHeader('Content-Type', 'text/plain');
-    return $this->renderText(json_encode($arr));
-    
-  }
+		$this->getResponse()->setHttpHeader('Content-Type', 'text/plain');
+		return $this->renderText(json_encode($array));
+	}
 
 }
