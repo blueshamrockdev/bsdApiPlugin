@@ -8,9 +8,15 @@
  */
 class PluginBsdApiActions extends sfActions
 {
+
 	protected $apiUser;
 	protected $_token;
 
+	/**
+	 * authUser
+	 *
+	 * @return boolean
+	 */
 	public function authUser()
 	{
 		if ($this->apiUser = Doctrine::getTable('bsdApiUser')->findOneByApiKey($this->_token))
@@ -21,6 +27,11 @@ class PluginBsdApiActions extends sfActions
 		return false;
 	}
 
+	/**
+	 * execute
+	 *
+	 * @param sfWebRequest $request
+	 */
 	public function execute($request)
 	{
 		if (!$request->hasParameter('token'))
@@ -36,6 +47,20 @@ class PluginBsdApiActions extends sfActions
 
 		$this->setLayout(false);
 		parent::execute($request);
+	}
+
+	/**
+	 * renderJSON
+	 *
+	 * @param array $array
+	 * @access protected
+	 * @return json
+	 */
+	protected function renderJSON(array $array)
+	{
+
+		$this->getResponse()->setHttpHeader('Content-Type', 'text/plain');
+		return $this->renderText(json_encode($array));
 	}
 
 }
