@@ -17,12 +17,12 @@ class PluginBsdApiActions extends sfActions
 	protected $apiUser;
 	protected $_token;
 
-	/**
-	 * authUser
-	 *
-     * @access public
-	 * @return boolean
-	 */
+   /**
+	* authUser
+	*
+    * @access public
+	* @return boolean
+	*/
 	public function authUser()
 	{
 		if ($this->apiUser = Doctrine::getTable('bsdApiUser')->findOneByApiKey($this->_token))
@@ -33,13 +33,13 @@ class PluginBsdApiActions extends sfActions
 		return false;
 	}
 
-	/**
-	 * execute
-	 *
-	 * @param sfWebRequest $request
-     * @access public
-     * @return void
-	 */
+   /**
+    * execute
+    *
+    * @param sfWebRequest $request
+    * @access public
+    * @return void
+    */
 	public function execute($request)
 	{
 
