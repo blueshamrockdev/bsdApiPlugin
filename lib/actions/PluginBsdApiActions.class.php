@@ -7,7 +7,7 @@
  * @uses sfActions
  * @package 
  * @version $id$
- * @copyright 2010-2011 Blue Shamrock Development
+ * @copyright 2010-2012 Blue Shamrock Development
  * @author Micah Breedlove <micah@blueshamrock.com> 
  * @license BSD Version 3.0 {@link https://raw.github.com/blueshamrockdev/bsdApiPlugin/940ae1645ea362bada34a1025730d85853060f80/LICENSE}
  */
@@ -34,15 +34,20 @@ class PluginBsdApiActions extends sfActions
 	}
 
    /**
-    * execute
+    * doAuth
     *
     * @param sfWebRequest $request
     * @access public
     * @return void
     */
-	public function execute($request)
+  
+  public function preExecute()
+  {
+    $request = $this->getRequest();
+    $this->doAuth($request);
+  }
+	public function doAuth($request)
 	{
-
     if(sfConfig::get('app_bsdapi_forceAjax') == true)
       $this->forward404Unless($request->isXmlHttpRequest(), "Requires AJAX Request");
 
@@ -58,17 +63,16 @@ class PluginBsdApiActions extends sfActions
 			throw new sfCommandArgumentsException(sprintf('bsdApiAction - Class not Found! (%s)', $request->getParameter('appClass')));
 
 		$this->setLayout(false);
-		parent::execute($request);
 	}
 
 	/**
 	 * renderJSON
 	 *
 	 * @param array $array
-	 * @access protected
+	 * @access public
 	 * @return json
 	 */
-	protected function renderJSON(array $array)
+	public function renderJSON(array $array)
 	{
 
 		$this->getResponse()->setHttpHeader('Content-Type', 'text/plain');
