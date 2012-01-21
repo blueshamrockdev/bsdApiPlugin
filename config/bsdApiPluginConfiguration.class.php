@@ -40,7 +40,7 @@ class bsdApiPluginConfiguration extends sfPluginConfiguration
       {
           if (!in_array($dependency, $plugins)) 
           {
-               throw new sfException(sprintf('The plugin "BarPlugin" requires "%s" to be enabled.', $dependency));
+               throw new sfException(sprintf('The plugin "bsdApiPlugin" requires "%s" to be enabled.', $dependency));
           }
       }
   }
