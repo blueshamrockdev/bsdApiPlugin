@@ -39,9 +39,11 @@ class bsdApiActions extends PluginBsdApiActions
          {
               // Build $paramArray  by getting GET variables minus module, action, appClass, and query
               $paramArray = $request->getParameterHolder()->getAll();
-              unset($paramArray['module'], $paramArray['action'], $paramArray['appClass'], $paramArray['query']);
+              unset($paramArray['module'], $paramArray['action'], $paramArray['appClass'], $paramArray['query'], $paramArray['token']);
 
-              $result = call_user_func_array(array($request->getParameter("appClass"), $request->getParameter()), array_values($paramArray) );
+              $result = call_user_func_array(array($appClassTable, $request->getParameter('query')), $paramArray );
+              // $result->toArray();
+		          return $this->renderJSON($result->toArray());
          } else
          {
    			      $result = $appClassTable->createNamedQuery($query)->setHydrationMode(Doctrine::HYDRATE_ARRAY);
@@ -64,8 +66,8 @@ class bsdApiActions extends PluginBsdApiActions
 			 */
 			$result->setHydrationMode(Doctrine::HYDRATE_ARRAY);
 		} // else
-
 		return $this->renderJSON($result->execute());
+
 	} // get
 
 
