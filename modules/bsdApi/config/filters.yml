@@ -2,5 +2,5 @@ rendering: ~
 security:
   enabled: false
 cache: ~
+remember_me: ~
 execution: ~
-common: ~
