@@ -33,9 +33,19 @@ class bsdApiActions extends PluginBsdApiActions
 		$appClass = sprintf("%s", ucfirst($request->getParameter('appClass')));
 		if ($request->hasParameter('query'))
 		{
-			$appClassTable = Doctrine::getTable($appClass);
-			$query = sprintf("%s", $request->getParameter('query'));
-			$result = $appClassTable->createNamedQuery($query)->setHydrationMode(Doctrine::HYDRATE_ARRAY);
+   			 $appClassTable = Doctrine::getTable($appClass);
+   			 $query = sprintf("%s", $request->getParameter('query'));
+         if (method_exists($appClassTable, $request->getParameter('query')))
+         {
+              // Build $paramArray  by getting GET variables minus module, action, appClass, and query
+              $paramArray = $request->getParameterHolder()->getAll();
+              unset($paramArray['module'], $paramArray['action'], $paramArray['appClass'], $paramArray['query']);
+
+              $result = call_user_func_array(array($request->getParameter("appClass"), $request->getParameter()), array_values($paramArray) );
+         } else
+         {
+   			      $result = $appClassTable->createNamedQuery($query)->setHydrationMode(Doctrine::HYDRATE_ARRAY);
+         }
 		} else
 		{
 
